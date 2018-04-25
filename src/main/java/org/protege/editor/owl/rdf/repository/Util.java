@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 public class Util {
+	public static long tot_tim = 0;
 	private Util() {
 		
 	}
@@ -15,7 +16,9 @@ public class Util {
 	public static Object convertValue(OwlTripleStore triples, Value v) throws RepositoryException {
 		Object converted = v;
 		if (v instanceof BNode) {
+			long beg = System.currentTimeMillis();
 			OWLClassExpression ce = triples.parseClassExpression((BNode) v);
+			tot_tim += (System.currentTimeMillis() - beg);
 			if (ce != null) {
 				converted = ce;
 			}

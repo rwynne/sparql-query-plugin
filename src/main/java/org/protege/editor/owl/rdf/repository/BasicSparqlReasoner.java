@@ -94,6 +94,9 @@ public class BasicSparqlReasoner implements SparqlReasoner {
 	private SparqlResultSet handleTupleQuery(TupleQuery tupleQuery) throws QueryEvaluationException, TupleQueryResultHandlerException {
 		TupleQueryHandler handler = new TupleQueryHandler(triples);
 		tupleQuery.evaluate(handler);
+		System.out.println("total time spent in handler " + handler.getTotTime());
+		System.out.println("total time spent in convertin anon nodes " + Util.tot_tim);
+		Util.tot_tim = 0;
 		return handler.getQueryResult();
 	}
 	

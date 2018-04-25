@@ -73,7 +73,9 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String query = queryPane.getText();
+					long beg = System.currentTimeMillis();
 					SparqlResultSet result = reasoner.executeQuery(query);
+					System.out.println("The query took " + (System.currentTimeMillis() - beg));
 					resultModel.setResults(result);
 				}
 				catch (SparqlReasonerException ex) {

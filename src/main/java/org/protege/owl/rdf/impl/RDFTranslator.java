@@ -85,8 +85,9 @@ public class RDFTranslator extends AbstractTranslator<Value, Resource, org.openr
 		RDFTranslator translator = null;		
 		try {		       
 	        OWLOntology ontology = manager.createOntology(axioms);
-                for (OWLAxiom axiom: axioms){  
-                    translator = new RDFTranslator(repository, manager, ontology);
+	        	
+                for (OWLAxiom axiom: axioms) { 
+                	translator = new RDFTranslator(repository, manager, ontology);
                     axiom.accept(translator);
                     addRdfTypes(repository,translator,axiom);
                     addControlTriples(repository,translator,axiom,hashCodeProperty,sourceOntologyProperty,ontologyRepresentative);

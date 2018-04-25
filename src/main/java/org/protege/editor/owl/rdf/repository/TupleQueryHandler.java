@@ -16,6 +16,9 @@ import org.protege.owl.rdf.api.OwlTripleStore;
 public class TupleQueryHandler implements TupleQueryResultHandler {
 	private OwlTripleStore triples;
 	private SparqlResultSet queryResult;
+	private long tot_tim = 0;
+	
+	public long getTotTime() { return tot_tim; }
 	
 	public TupleQueryHandler(OwlTripleStore triples) {
 		this.triples = triples;
@@ -32,6 +35,7 @@ public class TupleQueryHandler implements TupleQueryResultHandler {
 
 	@Override
 	public void handleSolution(BindingSet bindingSet) throws TupleQueryResultHandlerException {
+		long beg = System.currentTimeMillis();
 		try {
 			List<Object> row = new ArrayList<Object>();
 			for (int i = 0; i < queryResult.getColumnCount(); i++) {
@@ -41,6 +45,7 @@ public class TupleQueryHandler implements TupleQueryResultHandler {
 				row.add(Util.convertValue(triples, v));
 			}
 			queryResult.addRow(row);
+			tot_tim += (System.currentTimeMillis() - beg);
 		}
 		catch (RepositoryException re) {
 			throw new TupleQueryResultHandlerException(re);

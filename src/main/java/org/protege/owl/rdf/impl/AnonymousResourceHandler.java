@@ -75,7 +75,8 @@ public class AnonymousResourceHandler {
     }
     
     public OWLAxiom insertSurrogates(OWLAxiom axiom) {
-        return new SurrogateInserter(factory).duplicateObject(axiom);
+        //return new SurrogateInserter(factory).duplicateObject(axiom);
+    	return axiom;
     }
     
     public boolean isSurrogate(IRI iri) {
