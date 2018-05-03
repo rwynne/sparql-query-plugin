@@ -75,6 +75,7 @@ public class AnonymousResourceHandler {
     }
     
     public OWLAxiom insertSurrogates(OWLAxiom axiom) {
+    	// no need to create duplicate
         //return new SurrogateInserter(factory).duplicateObject(axiom);
     	return axiom;
     }
@@ -107,51 +108,7 @@ public class AnonymousResourceHandler {
         return duplicatedAnnos;
     }
     
-    private class SurrogateInserter extends OWLObjectDuplicator {
-        public SurrogateInserter(OWLDataFactory factory) {
-            super(factory);
-        }
-        
-        public void visit(OWLAnonymousIndividual i) {
-            IRI iri = getSurrogateId(i);
-            setLastObject(factory.getOWLNamedIndividual(iri));
-        }
-        
-        public void visit(OWLAnnotationAssertionAxiom axiom) {
-        	OWLObject rawSubject = duplicateObject(axiom.getSubject());
-            OWLAnnotationSubject subject;
-            if (rawSubject instanceof OWLNamedIndividual) {
-            	subject = ((OWLNamedIndividual) rawSubject).getIRI();
-            }
-            else {
-            	subject = (OWLAnnotationSubject) rawSubject;
-            }
-            OWLAnnotationProperty prop = duplicateObject(axiom.getProperty());
-            OWLObject rawValue = duplicateObject(axiom.getValue());
-            OWLAnnotationValue value;
-            if (rawValue instanceof OWLNamedIndividual) {
-                value = ((OWLNamedIndividual) rawValue).getIRI();
-            }
-            else {
-                value = (OWLAnnotationValue) rawValue;
-            }
-            setLastObject(factory.getOWLAnnotationAssertionAxiom(prop, subject, value, duplicateAxiomAnnotations(axiom, this)));
-        }
-        
-        public void visit(OWLAnnotation node) {
-            OWLAnnotationProperty prop = duplicateObject(node.getProperty());
-            OWLObject rawValue = duplicateObject(node.getValue());
-            OWLAnnotationValue val;
-            if (rawValue instanceof OWLNamedIndividual) {
-                val = ((OWLNamedIndividual) rawValue).getIRI();
-            }
-            else {
-                val = (OWLAnnotationValue) rawValue;
-            }
-            setLastObject(factory.getOWLAnnotation(prop, val));
-        }
-
-    }
+    
     
     private class SurrogateRemover extends OWLObjectDuplicator {
         

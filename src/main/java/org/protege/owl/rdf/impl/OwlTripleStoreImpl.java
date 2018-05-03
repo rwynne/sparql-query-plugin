@@ -59,8 +59,6 @@ public class OwlTripleStoreImpl implements OwlTripleStore {
 	
 	private Repository repository;
 	private AnonymousResourceHandler anonymousHandler;
-	
-	private Map<BNode, OWLClassExpression> cache = new HashMap<BNode, OWLClassExpression>();
 
 	private AnonymousNodeChecker anonymousNodeChecker = new AnonymousNodeChecker() {
         @Override
@@ -276,10 +274,6 @@ public class OwlTripleStoreImpl implements OwlTripleStore {
 	
 	@Override
     public OWLClassExpression parseClassExpression(BNode classExpressionNode) throws RepositoryException {
-		OWLClassExpression inc = cache.get(classExpressionNode);
-		if (inc != null) {
-			return inc;
-		}
 		RepositoryConnection connection = repository.getConnection();
 		try {
 			RepositoryResult<Statement> triples = connection.getStatements(classExpressionNode, null, null, false);
@@ -290,7 +284,6 @@ public class OwlTripleStoreImpl implements OwlTripleStore {
 			OWLClassExpression ce = consumer.translateClassExpression(IRI.create(nodeName));
 			consumer.endModel();
 			if (!((TrackingOntologyFormat) consumer.getOntologyFormat()).getFailed()) {
-				cache.put(classExpressionNode, ce);
 				return ce;
 			}
 			else {

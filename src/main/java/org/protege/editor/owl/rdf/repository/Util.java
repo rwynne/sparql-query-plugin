@@ -15,6 +15,7 @@ public class Util {
 
 	public static Object convertValue(OwlTripleStore triples, Value v) throws RepositoryException {
 		Object converted = v;
+		/**
 		if (v instanceof BNode) {
 			long beg = System.currentTimeMillis();
 			OWLClassExpression ce = triples.parseClassExpression((BNode) v);
@@ -26,6 +27,8 @@ public class Util {
 		else if (v instanceof org.openrdf.model.URI) {
 			converted = IRI.create(((org.openrdf.model.URI) v).stringValue());
 		}
+		**/
+		
 		return converted;
 	}
 	
