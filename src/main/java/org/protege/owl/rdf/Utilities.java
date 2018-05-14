@@ -13,6 +13,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import java.lang.NumberFormatException;
+
 public class Utilities {
 
 	private Utilities() {
@@ -57,4 +59,12 @@ public class Utilities {
 		manager.addOntologyChangeListener(new SynchronizeTripleStoreListener(ots));
 	}
 	
+	public static boolean isInteger(String input) {
+		try {
+			Integer.parseInt(input);
+			return true;
+		} catch( NumberFormatException ex ) {
+			return false;
+		}
+	}
 }
