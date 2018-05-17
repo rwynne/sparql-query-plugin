@@ -67,6 +67,10 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 		
 		String filename = "." + File.separator + "bookmark";
 		File file = new File(filename);
+		if (!file.isDirectory()) {
+			file.mkdir();
+	
+		}
 		String[] filenames = file.list();
 		
 		try {
