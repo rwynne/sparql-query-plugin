@@ -97,18 +97,7 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 			ErrorLogPanel.showErrorDialog(ex);
 			JOptionPane.showMessageDialog(getOWLWorkspace(), ex.getMessage() + "\nSee the logs for more information.");			
 		}
-		/* queryMap.put("bookmark test 1", reasoner.getSampleQuery());
-		queryMap.put("bookmark test 2", "prefix ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>\n" + 
-				"prefix owl:  <http://www.w3.org/2002/07/owl#>\n" + 
-				"prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" + 
-				"SELECT distinct ?s ?l\n" + 
-				"where { \n" + 
-				"	?s ?p ?o .\n" + 
-				"	?s a owl:Class .\n" + 
-				"	optional {?s rdfs:label ?l .}\n" + 
-				"	minus { ?s ncit:Semantic_Type ?x. }\n" + 
-				"	}\n" + 
-				"LIMIT 15"); */
+		
 	}
 	private JComponent createCenterComponent() {
 		JPanel panel = new JPanel();
@@ -123,9 +112,6 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 		}
 		
 		queryMap.put("NewQuery", "");
-		
-		//model.addElement("bookmark test 1");
-		//model.addElement("bookmark test 2");
 		bookmarkList = new JList(model);
 		queryPane = new JTextPane();
 		
@@ -277,7 +263,6 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 	}
 
 	private void saveBookmark(String bookmark, String query) throws IOException {
-		queryMap.put(bookmark, query);
 		
 		String filename = "." + File.separator + "bookmark" + File.separator + bookmark + ".txt";
 		File file = new File(filename);
@@ -287,13 +272,17 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 		writer.write(query);
 		writer.flush();
 	    writer.close();
+	    
 	    //update queryMap
-		queryMap.put(bookmark, query);
-		//set bookmark as selected
-		
-		DefaultListModel<String> model = (DefaultListModel)bookmarkList.getModel();
-		model.addElement(bookmark);
-		bookmarkList.setSelectedIndex(model.getSize() - 1);
+	    if (queryMap.get(bookmark) != null) {
+	    	// bookmakr already exists this is an update
+	    } else {
+	    	queryMap.put(bookmark, query);
+
+	    	DefaultListModel<String> model = (DefaultListModel)bookmarkList.getModel();
+	    	model.addElement(bookmark);
+	    	bookmarkList.setSelectedIndex(model.getSize() - 1);
+	    }
 		
 	}
 	
