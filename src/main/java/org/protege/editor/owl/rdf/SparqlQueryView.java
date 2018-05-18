@@ -232,7 +232,9 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 							 int colcount = resultModel.getColumnCount();
 							 StringBuilder builder = new StringBuilder();
 							 for(int j = 0; j < colcount; j++) {
-								 builder.append(resultModel.getValueAt(i, j).toString());
+								 if (resultModel.getValueAt(i, j) != null) {
+									 builder.append(resultModel.getValueAt(i, j).toString());
+								 }
 								 if(j < (colcount -1)) {
 									 builder.append('\t');
 								 }
@@ -277,12 +279,11 @@ public class SparqlQueryView extends AbstractOWLViewComponent {
 	    if (queryMap.get(bookmark) != null) {
 	    	// bookmakr already exists this is an update
 	    } else {
-	    	queryMap.put(bookmark, query);
-
 	    	DefaultListModel<String> model = (DefaultListModel)bookmarkList.getModel();
 	    	model.addElement(bookmark);
 	    	bookmarkList.setSelectedIndex(model.getSize() - 1);
 	    }
+	    queryMap.put(bookmark, query);
 		
 	}
 	
