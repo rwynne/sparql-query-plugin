@@ -1,16 +1,7 @@
 prefix ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> 
-select distinct ?code ?fullsyn1 ?sourcecode ?uniiprop
+select ?code ?o
 where {
   ?s ncit:NHC0 ?code .
-  ?s ncit:P90 ?fullsyn .
-  ?s ncit:P319 ?uniiprop .
-  [] a owl:Axiom ;
-      owl:annotatedSource ?s ;
-      owl:annotatedTarget ?fullsyn1 ;
-      owl:annotatedProperty ncit:P90 ;
-      ncit:term-source ?ts ;
-      ncit:P385 ?sourcecode ;
-      ncit:P386 ?subsource .
-      filter regex(str(?ts), "FDA") .
-      filter regex(str(?subsource), "UNII") .
+  ?s ncit:P90 ?o .
+  filter regex(str(?o), "; ") .
 }
