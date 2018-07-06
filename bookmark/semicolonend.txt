@@ -3,5 +3,5 @@ select ?code ?o
 where {
   ?s ncit:NHC0 ?code .
   ?s ncit:P90 ?o .
-  filter regex(str(?o), ";$") .
+  filter regex(str(?o), "; ") .
 }
