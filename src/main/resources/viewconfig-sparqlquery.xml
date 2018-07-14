@@ -3,7 +3,7 @@
     <VSNode splits="1.0">
         <CNode>
             <Component label="SPARQL Query">
-                <Property id="pluginId" value="org.protege.editor.owl.rdf.SparqlQueryView"/>
+                <Property id="pluginId" value="sparql-query-plugin.SparqlQueryView"/>
             </Component>
         </CNode>
     </VSNode>
