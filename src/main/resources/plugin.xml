@@ -17,7 +17,7 @@
         <class value="org.protege.editor.owl.ui.OWLWorkspaceViewsTab"/>
         <editorKitId value="OWLEditorKit"/>
         <index value="Z"/>
-        <defaultViewConfigFileName value="viewconfig.xml"/>
+        <defaultViewConfigFileName value="viewconfig_spq.xml"/>
     </extension>
 
 </plugin>
