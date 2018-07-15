@@ -18,8 +18,9 @@ public class Util {
 		Object converted = v;
 		
 		if (v instanceof MemLiteral) {
-			if ((((MemLiteral) v).getDatatype() != null) || 
-					(!((MemLiteral) v).getLanguage().equals(""))) {
+			if ((((MemLiteral) v).getDatatype() != null) ||
+					(((MemLiteral) v).getLanguage() != null) 
+					&& (!((MemLiteral) v).getLanguage().equals(""))) {
 				converted = v;
 			} else {
 				converted = ((MemLiteral) v).getLabel();
